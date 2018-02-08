@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <style>
+body {
+    background-color: lightblue;
+}
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid red;
+    border-radius: 4px;
+}
+p.sansserif {
+    font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+<body>
+
+<h1>Here are the people who signed in!</h1>
+
+<ul>
+    <% for(var i=0; i<data.length; i++) { %>
+        <li>
+          <p>
+                <%= data[i].fname %>
+                <%= data[i].timestamp %>
+            </p>
+        </li>
+    <% } %>
+</ul>
+
+<a href="/">Return</a>
+
+</body>
+</html>
