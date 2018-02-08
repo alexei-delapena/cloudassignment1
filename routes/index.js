@@ -25,8 +25,8 @@ client.on('error', (err, client) => {
 /**Create table if not exists */
 const createTB =
     'CREATE TABLE IF NOT EXISTS users(' +
-    'fname VARCHAR(100) NOT NULL PRIMARY KEY,' +
-    'timestamp VARCHAR(30) NOT NULL);';
+    'fname VARCHAR(100) NOT NULL,' +
+    'timestamp VARCHAR(30) NOT NULL PRIMARY KEY);';
 
 client.query(createTB, (err, res) => {
     if (err) {
@@ -38,7 +38,11 @@ client.query(createTB, (err, res) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home' });
+  res.render('index', { title: 'Home'});
+});
+
+router.get('/confirmed', function(req, res, next) {
+  res.render('confirmed', { title: 'Confirmed!'});
 });
 
 router.get('/entries', function(req, res, next) {
@@ -46,7 +50,7 @@ router.get('/entries', function(req, res, next) {
   client.query(sql, (err, result) => {
         if (err) {
             console.log(err);
-            res.redirect('/');
+            res.redirect('/?err=error');
         } else {
             //console.log(res);
             console.log(result.rows);
@@ -69,9 +73,11 @@ router.post('/checkin', function(req, res, next){
   client.query(sql, values, (err, result) => {
         if (err) {
             console.log(err);
+            res.redirect('/?user=error');
         } else {
             //console.log(res);
             console.log('inserted!');
+            res.redirect('/confirmed');
         }
     });
 });
